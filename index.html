@@ -222,19 +222,15 @@
         <input type="email" id="email" required>
       </div>
 
+      <div class="field">
+        <label for="location">Location / Area *</label>
+        <input type="text" id="location" placeholder="e.g. Chengalpattu, Tamil Nadu" required>
+      </div>
+
       <div class="row">
         <div class="field">
           <label for="position">Position Applying For *</label>
-          <select id="position" required>
-            <option value="">Select a position</option>
-            <option>Chef / Kitchen Staff</option>
-            <option>Waiter / Service Staff</option>
-            <option>Cashier</option>
-            <option>Manager</option>
-            <option>Delivery Staff</option>
-            <option>Housekeeping</option>
-            <option>Other</option>
-          </select>
+          <input type="text" id="position" placeholder="e.g. Chef, Cashier, Waiter" required>
         </div>
         <div class="field">
           <label for="experience">Experience (years) *</label>
@@ -282,6 +278,7 @@ form.addEventListener('submit', async function(e) {
     name: document.getElementById('name').value,
     email: document.getElementById('email').value,
     phone: document.getElementById('phone').value,
+    location: document.getElementById('location').value,
     position: document.getElementById('position').value,
     experience: document.getElementById('experience').value,
     education: document.getElementById('education').value,

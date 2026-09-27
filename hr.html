@@ -188,7 +188,7 @@
     overflow-x: auto;
     border: 1px solid #eef0ee;
   }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 900px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 1020px; }
   th, td { padding: 13px 15px; text-align: left; border-bottom: 1px solid #eef2ee; white-space: nowrap; }
   th {
     background: var(--green-light);
@@ -242,6 +242,144 @@
     .login-card { padding: 26px 16px 20px; }
     .topbar h1 { font-size: 13px; }
   }
+
+  /* ---- Insights dashboard ---- */
+  .insights {
+    margin-bottom: 22px;
+  }
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  .stat-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px 18px;
+    border: 1px solid #eef0ee;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  .stat-card .stat-label {
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .stat-card .stat-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--maroon);
+  }
+  .breakdown-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .breakdown-panel {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px 18px;
+    border: 1px solid #eef0ee;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  .breakdown-panel h3 {
+    font-size: 13px;
+    color: var(--green-dark);
+    font-weight: 700;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .bar-row { margin-bottom: 10px; }
+  .bar-row:last-child { margin-bottom: 0; }
+  .bar-row .bar-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12.5px;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .bar-row .bar-top span.bar-count { color: var(--muted); font-weight: 600; }
+  .bar-track {
+    height: 7px;
+    background: #eef2ee;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--green), var(--gold));
+    border-radius: 6px;
+  }
+  .empty-note { font-size: 12.5px; color: var(--muted); }
+
+  /* ---- Filter bar ---- */
+  .filter-bar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .filter-bar select, .filter-bar input[type="date"] {
+    padding: 9px 12px;
+    border: 1.5px solid #dfe4e8;
+    border-radius: 9px;
+    font-size: 13px;
+    background: #fff;
+    font-family: inherit;
+    outline: none;
+    color: var(--ink);
+  }
+  .filter-bar select:focus, .filter-bar input[type="date"]:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(31,150,72,0.12);
+  }
+  .filter-bar button#clearFiltersBtn {
+    padding: 9px 16px;
+    font-size: 12.5px;
+    font-weight: 600;
+    background: #f1f3f1;
+    color: var(--ink);
+    border: 1.5px solid #dfe4e8;
+    border-radius: 9px;
+    cursor: pointer;
+  }
+  .filter-bar button#clearFiltersBtn:hover { background: #e6e9e6; }
+
+  /* ---- Phone action buttons ---- */
+  .phone-cell { display: flex; flex-direction: column; gap: 4px; }
+  .phone-number { font-weight: 600; color: var(--ink); }
+  .phone-actions { display: flex; gap: 6px; }
+  .phone-actions a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    font-size: 13px;
+    text-decoration: none;
+    line-height: 1;
+  }
+  .phone-actions a.call { background: #e7f0fb; }
+  .phone-actions a.whatsapp { background: #e3f7e9; }
+  .phone-actions a.telegram { background: #e8f2fb; }
+
+  @media (max-width: 900px) {
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    .breakdown-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .stat-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .stat-card { padding: 12px 14px; }
+    .stat-card .stat-value { font-size: 18px; }
+    .filter-bar { flex-direction: column; }
+    .filter-bar select, .filter-bar input[type="date"] { width: 100%; }
+  }
 </style>
 </head>
 <body>
@@ -275,6 +413,41 @@
     <button id="logoutBtn">Logout</button>
   </div>
   <div class="content">
+    <div class="insights" id="insights">
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-label">Total Applications</div>
+          <div class="stat-value" id="statTotal">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Top Position</div>
+          <div class="stat-value" id="statTopPosition">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Top Location</div>
+          <div class="stat-value" id="statTopLocation">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Avg. Experience</div>
+          <div class="stat-value" id="statAvgExp">0 yrs</div>
+        </div>
+      </div>
+      <div class="breakdown-grid">
+        <div class="breakdown-panel">
+          <h3>By Location</h3>
+          <div id="breakdownLocation"></div>
+        </div>
+        <div class="breakdown-panel">
+          <h3>By Education</h3>
+          <div id="breakdownEducation"></div>
+        </div>
+        <div class="breakdown-panel">
+          <h3>By Experience</h3>
+          <div id="breakdownExperience"></div>
+        </div>
+      </div>
+    </div>
+
     <div class="toolbar">
       <input type="text" id="searchBox" placeholder="Search by name, email or position...">
       <div class="actions">
@@ -282,6 +455,15 @@
         <button id="refreshBtn" style="margin-left:10px;">↻ Refresh</button>
       </div>
     </div>
+
+    <div class="filter-bar">
+      <select id="filterPosition"><option value="">All Positions</option></select>
+      <select id="filterLocation"><option value="">All Locations</option></select>
+      <select id="filterEducation"><option value="">All Education</option></select>
+      <input type="date" id="filterDate" title="Filter by date applied">
+      <button id="clearFiltersBtn">Clear Filters</button>
+    </div>
+
     <div class="table-wrap">
       <div id="status">Loading applications...</div>
       <table id="appTable" style="display:none;">
@@ -291,6 +473,7 @@
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
+            <th>Location</th>
             <th>Position</th>
             <th>Experience</th>
             <th>Education</th>
@@ -351,7 +534,7 @@ async function attemptLogin() {
       sessionStorage.setItem('hrPassword', pwd);
       allApplications = data.data || [];
       showDashboard();
-      renderTable(allApplications);
+      populateFiltersAndRender();
     } else {
       loginMsg.textContent = data.message || "Invalid password";
       loginMsg.style.display = 'block';
@@ -396,7 +579,7 @@ async function loadApplications() {
 
     if (data.status === 'success') {
       allApplications = data.data || [];
-      renderTable(allApplications);
+      populateFiltersAndRender();
     } else {
       status.textContent = "Session expired. Please log in again.";
       setTimeout(() => { sessionStorage.clear(); location.reload(); }, 1500);
@@ -426,7 +609,8 @@ function renderTable(list) {
       <td>${formatDate(app.Timestamp)}</td>
       <td>${escapeHtml(app.Name)}</td>
       <td>${escapeHtml(app.Email)}</td>
-      <td>${escapeHtml(app.Phone)}</td>
+      <td>${buildPhoneCell(app.Phone)}</td>
+      <td>${escapeHtml(app.Location)}</td>
       <td>${escapeHtml(app.Position)}</td>
       <td>${escapeHtml(app.Experience)} yrs</td>
       <td>${escapeHtml(app.Education)}</td>
@@ -438,15 +622,167 @@ function renderTable(list) {
   table.style.display = 'table';
 }
 
-document.getElementById('searchBox').addEventListener('input', function() {
-  const q = this.value.toLowerCase();
-  const filtered = allApplications.filter(app =>
-    (app.Name || '').toLowerCase().includes(q) ||
-    (app.Email || '').toLowerCase().includes(q) ||
-    (app.Position || '').toLowerCase().includes(q)
-  );
+function buildPhoneCell(phone) {
+  const raw = (phone || '').toString().trim();
+  if (!raw) return '';
+  const digits = raw.replace(/[^\d+]/g, '');
+  let intl = digits;
+  if (!intl.startsWith('+')) {
+    intl = digits.length === 10 ? '+91' + digits : '+' + digits;
+  }
+  const waNumber = intl.replace('+', '');
+  return `
+    <div class="phone-cell">
+      <span class="phone-number">${escapeHtml(raw)}</span>
+      <div class="phone-actions">
+        <a class="call" href="tel:${intl}" title="Call ${escapeHtml(raw)}">📞</a>
+        <a class="whatsapp" href="https://wa.me/${waNumber}" target="_blank" rel="noopener" title="WhatsApp ${escapeHtml(raw)}">🟢</a>
+        <a class="telegram" href="https://t.me/+${waNumber}" target="_blank" rel="noopener" title="Telegram ${escapeHtml(raw)}">✈️</a>
+      </div>
+    </div>
+  `;
+}
+
+function populateFiltersAndRender() {
+  populateFilters();
+  applyFilters();
+}
+
+function populateFilters() {
+  const positionSel = document.getElementById('filterPosition');
+  const locationSel = document.getElementById('filterLocation');
+  const educationSel = document.getElementById('filterEducation');
+
+  const positions = [...new Set(allApplications.map(a => (a.Position || '').trim()).filter(Boolean))].sort();
+  const locations = [...new Set(allApplications.map(a => (a.Location || '').trim()).filter(Boolean))].sort();
+  const educations = [...new Set(allApplications.map(a => (a.Education || '').trim()).filter(Boolean))].sort();
+
+  const currentPos = positionSel.value;
+  const currentLoc = locationSel.value;
+  const currentEdu = educationSel.value;
+
+  positionSel.innerHTML = '<option value="">All Positions</option>' + positions.map(p => `<option value="${escapeHtml(p)}">${escapeHtml(p)}</option>`).join('');
+  locationSel.innerHTML = '<option value="">All Locations</option>' + locations.map(l => `<option value="${escapeHtml(l)}">${escapeHtml(l)}</option>`).join('');
+  educationSel.innerHTML = '<option value="">All Education</option>' + educations.map(e => `<option value="${escapeHtml(e)}">${escapeHtml(e)}</option>`).join('');
+
+  if (positions.includes(currentPos)) positionSel.value = currentPos;
+  if (locations.includes(currentLoc)) locationSel.value = currentLoc;
+  if (educations.includes(currentEdu)) educationSel.value = currentEdu;
+}
+
+function applyFilters() {
+  const q = document.getElementById('searchBox').value.toLowerCase();
+  const posFilter = document.getElementById('filterPosition').value;
+  const locFilter = document.getElementById('filterLocation').value;
+  const eduFilter = document.getElementById('filterEducation').value;
+  const dateFilter = document.getElementById('filterDate').value; // yyyy-mm-dd
+
+  const filtered = allApplications.filter(app => {
+    const matchesSearch = !q ||
+      (app.Name || '').toLowerCase().includes(q) ||
+      (app.Email || '').toLowerCase().includes(q) ||
+      (app.Position || '').toLowerCase().includes(q) ||
+      (app.Location || '').toLowerCase().includes(q);
+
+    const matchesPos = !posFilter || (app.Position || '') === posFilter;
+    const matchesLoc = !locFilter || (app.Location || '') === locFilter;
+    const matchesEdu = !eduFilter || (app.Education || '') === eduFilter;
+
+    let matchesDate = true;
+    if (dateFilter) {
+      const d = new Date(app.Timestamp);
+      if (!isNaN(d)) {
+        const appDate = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+        matchesDate = appDate === dateFilter;
+      } else {
+        matchesDate = false;
+      }
+    }
+
+    return matchesSearch && matchesPos && matchesLoc && matchesEdu && matchesDate;
+  });
+
   renderTable(filtered);
+  renderDashboard(filtered);
+}
+
+document.getElementById('searchBox').addEventListener('input', applyFilters);
+document.getElementById('filterPosition').addEventListener('change', applyFilters);
+document.getElementById('filterLocation').addEventListener('change', applyFilters);
+document.getElementById('filterEducation').addEventListener('change', applyFilters);
+document.getElementById('filterDate').addEventListener('change', applyFilters);
+document.getElementById('clearFiltersBtn').addEventListener('click', () => {
+  document.getElementById('searchBox').value = '';
+  document.getElementById('filterPosition').value = '';
+  document.getElementById('filterLocation').value = '';
+  document.getElementById('filterEducation').value = '';
+  document.getElementById('filterDate').value = '';
+  applyFilters();
 });
+
+function renderDashboard(list) {
+  document.getElementById('statTotal').textContent = list.length;
+
+  const posCounts = countBy(list, 'Position');
+  const locCounts = countBy(list, 'Location');
+  const eduCounts = countBy(list, 'Education');
+
+  const topPos = topEntry(posCounts);
+  const topLoc = topEntry(locCounts);
+  document.getElementById('statTopPosition').textContent = topPos ? topPos[0] : '—';
+  document.getElementById('statTopLocation').textContent = topLoc ? topLoc[0] : '—';
+
+  const expValues = list.map(a => parseFloat(a.Experience)).filter(n => !isNaN(n));
+  const avgExp = expValues.length ? (expValues.reduce((a, b) => a + b, 0) / expValues.length) : 0;
+  document.getElementById('statAvgExp').textContent = avgExp.toFixed(1) + ' yrs';
+
+  renderBreakdown('breakdownLocation', locCounts);
+  renderBreakdown('breakdownEducation', eduCounts);
+
+  const expBuckets = { '0-1 yrs': 0, '1-3 yrs': 0, '3-5 yrs': 0, '5+ yrs': 0 };
+  expValues.forEach(v => {
+    if (v <= 1) expBuckets['0-1 yrs']++;
+    else if (v <= 3) expBuckets['1-3 yrs']++;
+    else if (v <= 5) expBuckets['3-5 yrs']++;
+    else expBuckets['5+ yrs']++;
+  });
+  renderBreakdown('breakdownExperience', expBuckets, true);
+}
+
+function countBy(list, field) {
+  const counts = {};
+  list.forEach(a => {
+    const val = (a[field] || '').toString().trim();
+    if (!val) return;
+    counts[val] = (counts[val] || 0) + 1;
+  });
+  return counts;
+}
+
+function topEntry(counts) {
+  const entries = Object.entries(counts);
+  if (!entries.length) return null;
+  return entries.sort((a, b) => b[1] - a[1])[0];
+}
+
+function renderBreakdown(containerId, counts, keepOrder) {
+  const container = document.getElementById(containerId);
+  let entries = Object.entries(counts).filter(([, c]) => c > 0);
+  if (!keepOrder) entries = entries.sort((a, b) => b[1] - a[1]).slice(0, 5);
+
+  if (!entries.length) {
+    container.innerHTML = '<p class="empty-note">No data yet.</p>';
+    return;
+  }
+
+  const max = Math.max(...entries.map(([, c]) => c));
+  container.innerHTML = entries.map(([label, count]) => `
+    <div class="bar-row">
+      <div class="bar-top"><span>${escapeHtml(label)}</span><span class="bar-count">${count}</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.max(6, (count / max) * 100)}%"></div></div>
+    </div>
+  `).join('');
+}
 
 function formatDate(ts) {
   if (!ts) return '';

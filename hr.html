@@ -188,7 +188,7 @@
     overflow-x: auto;
     border: 1px solid #eef0ee;
   }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 1020px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 1220px; }
   th, td { padding: 13px 15px; text-align: left; border-bottom: 1px solid #eef2ee; white-space: nowrap; }
   th {
     background: var(--green-light);
@@ -276,7 +276,7 @@
   }
   .breakdown-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 14px;
   }
   .breakdown-panel {
@@ -350,6 +350,35 @@
   }
   .filter-bar button#clearFiltersBtn:hover { background: #e6e9e6; }
 
+  /* ---- Status badges & actions ---- */
+  .status-select {
+    padding: 6px 8px;
+    border-radius: 7px;
+    border: 1.5px solid #dfe4e8;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    background: #fff;
+  }
+  .status-select.status-New { background: #eef2f7; color: #445; border-color: #dbe2ea; }
+  .status-select.status-Shortlisted { background: #e6f3ff; color: #1a5fa8; border-color: #bcdcff; }
+  .status-select.status-Featured { background: #fff6e0; color: #9a7300; border-color: #f3e0a3; }
+  .status-select.status-Hold { background: #fdf1e0; color: #a05a00; border-color: #f3d9a8; }
+  .status-select.status-Rejected { background: #fdeaea; color: #c0392b; border-color: #f6c6c1; }
+  .status-select.status-Joined { background: #e3f7e9; color: #1a7d3a; border-color: #bfe8cd; }
+  .delete-btn {
+    background: #fdeaea;
+    color: #c0392b;
+    border: 1.5px solid #f6c6c1;
+    border-radius: 7px;
+    padding: 6px 10px;
+    font-size: 12.5px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .delete-btn:hover { background: #fbdada; }
+
   /* ---- Phone action buttons ---- */
   .phone-cell { display: flex; flex-direction: column; gap: 4px; }
   .phone-number { font-weight: 600; color: var(--ink); }
@@ -369,6 +398,9 @@
   .phone-actions a.whatsapp { background: #e3f7e9; }
   .phone-actions a.telegram { background: #e8f2fb; }
 
+  @media (max-width: 1100px) {
+    .breakdown-grid { grid-template-columns: repeat(2, 1fr); }
+  }
   @media (max-width: 900px) {
     .stat-grid { grid-template-columns: repeat(2, 1fr); }
     .breakdown-grid { grid-template-columns: 1fr; }
@@ -445,6 +477,10 @@
           <h3>By Experience</h3>
           <div id="breakdownExperience"></div>
         </div>
+        <div class="breakdown-panel">
+          <h3>By Status</h3>
+          <div id="breakdownStatus"></div>
+        </div>
       </div>
     </div>
 
@@ -460,6 +496,15 @@
       <select id="filterPosition"><option value="">All Positions</option></select>
       <select id="filterLocation"><option value="">All Locations</option></select>
       <select id="filterEducation"><option value="">All Education</option></select>
+      <select id="filterStatus">
+        <option value="">All Statuses</option>
+        <option value="New">New</option>
+        <option value="Shortlisted">Shortlisted</option>
+        <option value="Featured">Featured</option>
+        <option value="Hold">Hold</option>
+        <option value="Rejected">Rejected</option>
+        <option value="Joined">Joined</option>
+      </select>
       <input type="date" id="filterDate" title="Filter by date applied">
       <button id="clearFiltersBtn">Clear Filters</button>
     </div>
@@ -478,6 +523,8 @@
             <th>Experience</th>
             <th>Education</th>
             <th>Cover Letter</th>
+            <th>Status</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody id="tableBody"></tbody>
@@ -562,6 +609,92 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
 
 document.getElementById('refreshBtn').addEventListener('click', loadApplications);
 
+// Event delegation for status changes and delete clicks (rows are re-rendered dynamically)
+document.getElementById('tableBody').addEventListener('change', function(e) {
+  if (e.target.classList.contains('status-select')) {
+    const id = e.target.getAttribute('data-id');
+    const newStatus = e.target.value;
+    updateCandidateStatus(id, newStatus, e.target);
+  }
+});
+
+document.getElementById('tableBody').addEventListener('click', function(e) {
+  const btn = e.target.closest('.delete-btn');
+  if (btn) {
+    const id = btn.getAttribute('data-id');
+    const name = btn.getAttribute('data-name') || 'this candidate';
+    if (confirm(`Delete the application from "${name}"? This cannot be undone.`)) {
+      deleteCandidateApplication(id);
+    }
+  }
+});
+
+async function updateCandidateStatus(id, newStatus, selectEl) {
+  const prevClass = selectEl.className;
+  selectEl.disabled = true;
+  try {
+    const res = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'updateStatus', password: hrPasswordCache, id: id, status: newStatus })
+    });
+    const data = await res.json();
+    if (data.status === 'success') {
+      const app = allApplications.find(a => a.ID === id);
+      if (app) app.Status = newStatus;
+      selectEl.className = 'status-select status-' + newStatus;
+      renderDashboard(currentFilteredList());
+    } else {
+      alert('Could not update status: ' + (data.message || 'Unknown error'));
+      selectEl.className = prevClass;
+    }
+  } catch (err) {
+    alert('Could not update status. Check your connection.');
+    selectEl.className = prevClass;
+  }
+  selectEl.disabled = false;
+}
+
+async function deleteCandidateApplication(id) {
+  try {
+    const res = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'deleteApplication', password: hrPasswordCache, id: id })
+    });
+    const data = await res.json();
+    if (data.status === 'success') {
+      allApplications = allApplications.filter(a => a.ID !== id);
+      populateFiltersAndRender();
+    } else {
+      alert('Could not delete: ' + (data.message || 'Unknown error'));
+    }
+  } catch (err) {
+    alert('Could not delete. Check your connection.');
+  }
+}
+
+function currentFilteredList() {
+  // Re-derive the currently visible filtered list (used to refresh dashboard after a status change)
+  const q = document.getElementById('searchBox').value.toLowerCase();
+  const posFilter = document.getElementById('filterPosition').value;
+  const locFilter = document.getElementById('filterLocation').value;
+  const eduFilter = document.getElementById('filterEducation').value;
+  const statusFilter = document.getElementById('filterStatus').value;
+  return allApplications.filter(app => {
+    const matchesSearch = !q ||
+      (app.Name || '').toLowerCase().includes(q) ||
+      (app.Email || '').toLowerCase().includes(q) ||
+      (app.Position || '').toLowerCase().includes(q) ||
+      (app.Location || '').toLowerCase().includes(q);
+    const matchesPos = !posFilter || (app.Position || '') === posFilter;
+    const matchesLoc = !locFilter || (app.Location || '') === locFilter;
+    const matchesEdu = !eduFilter || (app.Education || '') === eduFilter;
+    const matchesStatus = !statusFilter || (app.Status || 'New') === statusFilter;
+    return matchesSearch && matchesPos && matchesLoc && matchesEdu && matchesStatus;
+  });
+}
+
 async function loadApplications() {
   const status = document.getElementById('status');
   const table = document.getElementById('appTable');
@@ -615,11 +748,20 @@ function renderTable(list) {
       <td>${escapeHtml(app.Experience)} yrs</td>
       <td>${escapeHtml(app.Education)}</td>
       <td class="wrap">${escapeHtml(app.CoverLetter)}</td>
+      <td>${buildStatusCell(app)}</td>
+      <td><button class="delete-btn" data-id="${escapeHtml(app.ID)}" data-name="${escapeHtml(app.Name)}">🗑 Delete</button></td>
     </tr>
   `).join('');
 
   status.style.display = 'none';
   table.style.display = 'table';
+}
+
+function buildStatusCell(app) {
+  const current = app.Status || 'New';
+  const options = ['New', 'Shortlisted', 'Featured', 'Hold', 'Rejected', 'Joined'];
+  const optionsHtml = options.map(o => `<option value="${o}" ${o === current ? 'selected' : ''}>${o}</option>`).join('');
+  return `<select class="status-select status-${current}" data-id="${escapeHtml(app.ID)}">${optionsHtml}</select>`;
 }
 
 function buildPhoneCell(phone) {
@@ -675,6 +817,7 @@ function applyFilters() {
   const posFilter = document.getElementById('filterPosition').value;
   const locFilter = document.getElementById('filterLocation').value;
   const eduFilter = document.getElementById('filterEducation').value;
+  const statusFilter = document.getElementById('filterStatus').value;
   const dateFilter = document.getElementById('filterDate').value; // yyyy-mm-dd
 
   const filtered = allApplications.filter(app => {
@@ -687,6 +830,7 @@ function applyFilters() {
     const matchesPos = !posFilter || (app.Position || '') === posFilter;
     const matchesLoc = !locFilter || (app.Location || '') === locFilter;
     const matchesEdu = !eduFilter || (app.Education || '') === eduFilter;
+    const matchesStatus = !statusFilter || (app.Status || 'New') === statusFilter;
 
     let matchesDate = true;
     if (dateFilter) {
@@ -699,7 +843,7 @@ function applyFilters() {
       }
     }
 
-    return matchesSearch && matchesPos && matchesLoc && matchesEdu && matchesDate;
+    return matchesSearch && matchesPos && matchesLoc && matchesEdu && matchesStatus && matchesDate;
   });
 
   renderTable(filtered);
@@ -710,12 +854,14 @@ document.getElementById('searchBox').addEventListener('input', applyFilters);
 document.getElementById('filterPosition').addEventListener('change', applyFilters);
 document.getElementById('filterLocation').addEventListener('change', applyFilters);
 document.getElementById('filterEducation').addEventListener('change', applyFilters);
+document.getElementById('filterStatus').addEventListener('change', applyFilters);
 document.getElementById('filterDate').addEventListener('change', applyFilters);
 document.getElementById('clearFiltersBtn').addEventListener('click', () => {
   document.getElementById('searchBox').value = '';
   document.getElementById('filterPosition').value = '';
   document.getElementById('filterLocation').value = '';
   document.getElementById('filterEducation').value = '';
+  document.getElementById('filterStatus').value = '';
   document.getElementById('filterDate').value = '';
   applyFilters();
 });
@@ -747,6 +893,12 @@ function renderDashboard(list) {
     else expBuckets['5+ yrs']++;
   });
   renderBreakdown('breakdownExperience', expBuckets, true);
+
+  const statusOrder = ['New', 'Shortlisted', 'Featured', 'Hold', 'Rejected', 'Joined'];
+  const statusCountsRaw = countBy(list.map(a => ({ StatusField: a.Status || 'New' })), 'StatusField');
+  const statusCounts = {};
+  statusOrder.forEach(s => { statusCounts[s] = statusCountsRaw[s] || 0; });
+  renderBreakdown('breakdownStatus', statusCounts, true);
 }
 
 function countBy(list, field) {

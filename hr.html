@@ -18,11 +18,7 @@
     --muted: #6b7580;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Poppins', Arial, sans-serif;
-    background: #f2f4f3;
-    min-height: 100vh;
-  }
+  body { font-family: 'Poppins', Arial, sans-serif; background: #f2f4f3; min-height: 100vh; }
 
   /* ---- Login screen ---- */
   #loginScreen {
@@ -54,17 +50,8 @@
     border-top: 5px solid var(--gold);
     text-align: center;
   }
-  .login-card img.brand-logo {
-    height: 78px;
-    object-fit: contain;
-    margin-bottom: 12px;
-  }
-  .login-card h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 20px;
-    color: var(--maroon);
-    margin-bottom: 4px;
-  }
+  .login-card img.brand-logo { height: 78px; object-fit: contain; margin-bottom: 12px; }
+  .login-card h1 { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--maroon); margin-bottom: 4px; }
   .login-card p { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
   .field { margin-bottom: 16px; text-align: left; }
   label { display: block; font-size: 13px; font-weight: 600; color: #333; margin-bottom: 6px; }
@@ -79,338 +66,165 @@
     background: #fbfcfc;
     transition: border-color 0.2s, box-shadow 0.2s;
   }
-  input:focus {
-    border-color: var(--green);
-    box-shadow: 0 0 0 3px rgba(31,150,72,0.15);
-    background: #fff;
-  }
-  .toggle-eye {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    font-size: 15px;
-    color: var(--muted);
-    user-select: none;
-  }
+  input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(31,150,72,0.15); background: #fff; }
+  .toggle-eye { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 15px; color: var(--muted); user-select: none; }
   button#loginBtn {
-    width: 100%;
-    padding: 13px;
+    width: 100%; padding: 13px;
     background: linear-gradient(135deg, var(--maroon), var(--maroon-dark));
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 8px 18px rgba(122,19,48,0.3);
+    color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: 600;
+    cursor: pointer; box-shadow: 0 8px 18px rgba(122,19,48,0.3);
     transition: transform 0.15s, box-shadow 0.2s;
   }
   button#loginBtn:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(122,19,48,0.4); }
   button#loginBtn:disabled { background: #9aa7b8; box-shadow: none; cursor: not-allowed; transform: none; }
-  #loginMsg {
-    margin-top: 12px;
-    font-size: 13px;
-    color: #c0392b;
-    text-align: center;
-    display: none;
-    background: #fdeaea;
-    padding: 9px;
-    border-radius: 8px;
-  }
+  #loginMsg { margin-top: 12px; font-size: 13px; color: #c0392b; text-align: center; display: none; background: #fdeaea; padding: 9px; border-radius: 8px; }
   .back-link { text-align: center; margin-top: 18px; font-size: 13px; }
   .back-link a { color: var(--green-dark); text-decoration: none; font-weight: 600; }
 
-  /* ---- Dashboard screen ---- */
+  /* ---- Dashboard ---- */
   #dashboard { display: none; }
   .topbar {
     background: linear-gradient(135deg, var(--green-dark), var(--maroon-dark));
-    color: #fff;
-    padding: 14px 26px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    color: #fff; padding: 14px 26px;
+    display: flex; justify-content: space-between; align-items: center;
     box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    flex-wrap: wrap; gap: 10px;
   }
   .topbar .brand { display: flex; align-items: center; gap: 12px; }
   .topbar .brand img { height: 38px; }
   .topbar h1 { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; }
   .topbar h1 span.sub { display: block; font-family: 'Poppins', sans-serif; font-size: 11px; font-weight: 400; opacity: 0.8; }
   .topbar button {
-    padding: 9px 18px;
-    background: rgba(255,255,255,0.15);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.35);
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
+    padding: 9px 18px; background: rgba(255,255,255,0.15); color: #fff;
+    border: 1px solid rgba(255,255,255,0.35); border-radius: 8px;
+    font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.2s;
   }
   .topbar button:hover { background: rgba(255,255,255,0.28); }
 
-  .content { padding: 26px; max-width: 1200px; margin: 0 auto; }
-  .toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 18px;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  .toolbar input {
-    padding: 10px 14px;
-    border: 1.5px solid #dfe4e8;
-    border-radius: 9px;
-    font-size: 14px;
-    width: 270px;
-    background: #fff;
-    outline: none;
-  }
-  .toolbar input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(31,150,72,0.12); }
-  .toolbar .actions button {
-    padding: 10px 18px;
-    font-size: 13px;
-    font-weight: 600;
-    background: var(--green);
-    color: #fff;
-    border: none;
-    border-radius: 9px;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .toolbar .actions button:hover { background: var(--green-dark); }
-  .table-wrap {
-    background: #fff;
-    border-radius: 14px;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.07);
-    overflow-x: auto;
-    border: 1px solid #eef0ee;
-  }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 1220px; }
-  th, td { padding: 13px 15px; text-align: left; border-bottom: 1px solid #eef2ee; white-space: nowrap; }
-  th {
-    background: var(--green-light);
-    color: var(--green-dark);
-    font-weight: 700;
-    font-size: 11.5px;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-    position: sticky;
-    top: 0;
-  }
-  td.wrap { white-space: normal; max-width: 260px; }
-  tr:hover td { background: #fafcfa; }
-  #status { text-align: center; padding: 46px; color: #888; font-size: 14px; }
-  .count-badge {
-    display: inline-block;
-    background: var(--gold);
-    color: var(--maroon-dark);
-    font-size: 12px;
-    font-weight: 700;
-    padding: 3px 11px;
-    border-radius: 20px;
-    margin-left: 8px;
-  }
+  .content { padding: 22px; max-width: 1400px; margin: 0 auto; }
 
-  /* ---- Mobile responsiveness ---- */
-  @media (max-width: 600px) {
-    .login-card { padding: 30px 22px 24px; border-radius: 16px; }
-    .login-card img.brand-logo { height: 60px; }
-    .login-card h1 { font-size: 18px; }
-    input { font-size: 16px; } /* prevents iOS zoom-on-focus */
-    button#loginBtn { padding: 14px; font-size: 16px; }
-
-    .topbar { padding: 12px 16px; flex-wrap: wrap; gap: 10px; }
-    .topbar .brand img { height: 30px; }
-    .topbar h1 { font-size: 15px; }
-    .topbar h1 span.sub { font-size: 10px; }
-    .topbar button { padding: 8px 14px; font-size: 12px; }
-
-    .content { padding: 14px; }
-    .toolbar { flex-direction: column; align-items: stretch; }
-    .toolbar input { width: 100%; }
-    .toolbar .actions { display: flex; justify-content: space-between; align-items: center; }
-    .toolbar .actions button { flex-shrink: 0; }
-    .count-badge { margin-left: 0; }
-
-    th, td { padding: 10px 12px; font-size: 12.5px; }
-    td.wrap { max-width: 180px; }
-  }
-  @media (max-width: 380px) {
-    .login-card { padding: 26px 16px 20px; }
-    .topbar h1 { font-size: 13px; }
-  }
-
-  /* ---- Insights dashboard ---- */
-  .insights {
-    margin-bottom: 22px;
-  }
-  .stat-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-    margin-bottom: 16px;
-  }
-  .stat-card {
-    background: #fff;
-    border-radius: 12px;
-    padding: 16px 18px;
-    border: 1px solid #eef0ee;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  }
-  .stat-card .stat-label {
-    font-size: 11.5px;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-    color: var(--muted);
-    font-weight: 600;
-    margin-bottom: 6px;
-  }
-  .stat-card .stat-value {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--maroon);
-  }
-  .breakdown-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
-  }
-  .breakdown-panel {
-    background: #fff;
-    border-radius: 12px;
-    padding: 16px 18px;
-    border: 1px solid #eef0ee;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  }
-  .breakdown-panel h3 {
-    font-size: 13px;
-    color: var(--green-dark);
-    font-weight: 700;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-  }
+  /* ---- Insights ---- */
+  .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 16px; }
+  .stat-card { background: #fff; border-radius: 12px; padding: 16px 18px; border: 1px solid #eef0ee; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+  .stat-card .stat-label { font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.4px; color: var(--muted); font-weight: 600; margin-bottom: 6px; }
+  .stat-card .stat-value { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--maroon); }
+  .breakdown-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 22px; }
+  .breakdown-panel { background: #fff; border-radius: 12px; padding: 16px 18px; border: 1px solid #eef0ee; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+  .breakdown-panel h3 { font-size: 13px; color: var(--green-dark); font-weight: 700; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.3px; }
   .bar-row { margin-bottom: 10px; }
   .bar-row:last-child { margin-bottom: 0; }
-  .bar-row .bar-top {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12.5px;
-    color: var(--ink);
-    margin-bottom: 4px;
-  }
-  .bar-row .bar-top span.bar-count { color: var(--muted); font-weight: 600; }
-  .bar-track {
-    height: 7px;
-    background: #eef2ee;
-    border-radius: 6px;
-    overflow: hidden;
-  }
-  .bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--green), var(--gold));
-    border-radius: 6px;
-  }
+  .bar-row .bar-top { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--ink); margin-bottom: 4px; gap: 8px; }
+  .bar-row .bar-top span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-row .bar-top span.bar-count { color: var(--muted); font-weight: 600; flex-shrink: 0; }
+  .bar-track { height: 7px; background: #eef2ee; border-radius: 6px; overflow: hidden; }
+  .bar-fill { height: 100%; background: linear-gradient(90deg, var(--green), var(--gold)); border-radius: 6px; }
   .empty-note { font-size: 12.5px; color: var(--muted); }
 
-  /* ---- Filter bar ---- */
-  .filter-bar {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 14px;
+  /* ---- Filters (Location / Education / Position are primary) ---- */
+  .filters-section {
+    background: #fff; border-radius: 14px; border: 1px solid #eef0ee;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05); padding: 18px 20px; margin-bottom: 18px;
   }
-  .filter-bar select, .filter-bar input[type="date"] {
-    padding: 9px 12px;
-    border: 1.5px solid #dfe4e8;
-    border-radius: 9px;
-    font-size: 13px;
-    background: #fff;
-    font-family: inherit;
-    outline: none;
-    color: var(--ink);
+  .filters-top-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
+  .filters-top-row input#searchBox { flex: 1; min-width: 220px; max-width: 360px; }
+  .filters-top-row .actions { display: flex; align-items: center; gap: 10px; }
+  input, select { font-family: inherit; }
+  .filters-top-row input, .primary-filters select, .secondary-filters select, .secondary-filters input {
+    padding: 10px 13px; border: 1.5px solid #dfe4e8; border-radius: 9px; font-size: 13.5px; background: #fff; outline: none; color: var(--ink);
   }
-  .filter-bar select:focus, .filter-bar input[type="date"]:focus {
-    border-color: var(--green);
-    box-shadow: 0 0 0 3px rgba(31,150,72,0.12);
+  .filters-top-row input:focus, .primary-filters select:focus, .secondary-filters select:focus, .secondary-filters input:focus {
+    border-color: var(--green); box-shadow: 0 0 0 3px rgba(31,150,72,0.12);
   }
-  .filter-bar button#clearFiltersBtn {
-    padding: 9px 16px;
-    font-size: 12.5px;
-    font-weight: 600;
-    background: #f1f3f1;
-    color: var(--ink);
-    border: 1.5px solid #dfe4e8;
-    border-radius: 9px;
-    cursor: pointer;
+  .primary-filters {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 12px;
   }
-  .filter-bar button#clearFiltersBtn:hover { background: #e6e9e6; }
+  .primary-filters label, .secondary-filters label {
+    display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; color: var(--green-dark); margin-bottom: 5px;
+  }
+  .primary-filters select { width: 100%; font-weight: 600; border-width: 2px; }
+  .secondary-filters { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+  .secondary-filters .field-group { min-width: 150px; }
+  .secondary-filters select, .secondary-filters input { width: 100%; }
+  button#clearFiltersBtn {
+    padding: 10px 18px; font-size: 12.5px; font-weight: 600; background: #f1f3f1; color: var(--ink);
+    border: 1.5px solid #dfe4e8; border-radius: 9px; cursor: pointer; height: 42px;
+  }
+  button#clearFiltersBtn:hover { background: #e6e9e6; }
+  .count-badge {
+    display: inline-block; background: var(--gold); color: var(--maroon-dark);
+    font-size: 12px; font-weight: 700; padding: 5px 13px; border-radius: 20px;
+  }
+  button#refreshBtn {
+    padding: 10px 18px; font-size: 13px; font-weight: 600; background: var(--green); color: #fff;
+    border: none; border-radius: 9px; cursor: pointer; transition: background 0.2s;
+  }
+  button#refreshBtn:hover { background: var(--green-dark); }
 
-  /* ---- Status badges & actions ---- */
-  .status-select {
-    padding: 6px 8px;
-    border-radius: 7px;
-    border: 1.5px solid #dfe4e8;
-    font-size: 12.5px;
-    font-weight: 600;
-    cursor: pointer;
-    outline: none;
-    background: #fff;
+  /* ---- Table ---- */
+  .table-wrap { background: #fff; border-radius: 14px; box-shadow: 0 4px 18px rgba(0,0,0,0.07); overflow-x: auto; border: 1px solid #eef0ee; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 1360px; }
+  th, td { padding: 13px 15px; text-align: left; border-bottom: 1px solid #eef2ee; white-space: nowrap; }
+  th { background: var(--green-light); color: var(--green-dark); font-weight: 700; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.4px; position: sticky; top: 0; }
+  td.wrap { white-space: normal; max-width: 220px; }
+  tr:hover td { background: #fafcfa; }
+  #status { text-align: center; padding: 46px; color: #888; font-size: 14px; }
+
+  /* ---- Phone actions ---- */
+  .phone-cell { display: flex; flex-direction: column; gap: 4px; }
+  .phone-number { font-weight: 600; color: var(--ink); }
+  .phone-actions { display: flex; gap: 6px; }
+  .phone-actions a { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 6px; font-size: 13px; text-decoration: none; line-height: 1; }
+  .phone-actions a.call { background: #e7f0fb; }
+  .phone-actions a.whatsapp { background: #e3f7e9; }
+  .phone-actions a.telegram { background: #e8f2fb; }
+
+  /* ---- Resume link ---- */
+  .resume-link {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 6px 10px; border-radius: 7px; background: #eef2ee; color: var(--green-dark);
+    text-decoration: none; font-size: 12.5px; font-weight: 600;
   }
+  .resume-link:hover { background: #e2e9e2; }
+  .no-resume { color: var(--muted); font-size: 12.5px; }
+
+  /* ---- Status & delete ---- */
+  .status-select { padding: 6px 8px; border-radius: 7px; border: 1.5px solid #dfe4e8; font-size: 12.5px; font-weight: 600; cursor: pointer; outline: none; background: #fff; }
   .status-select.status-New { background: #eef2f7; color: #445; border-color: #dbe2ea; }
   .status-select.status-Shortlisted { background: #e6f3ff; color: #1a5fa8; border-color: #bcdcff; }
   .status-select.status-Featured { background: #fff6e0; color: #9a7300; border-color: #f3e0a3; }
   .status-select.status-Hold { background: #fdf1e0; color: #a05a00; border-color: #f3d9a8; }
   .status-select.status-Rejected { background: #fdeaea; color: #c0392b; border-color: #f6c6c1; }
   .status-select.status-Joined { background: #e3f7e9; color: #1a7d3a; border-color: #bfe8cd; }
-  .delete-btn {
-    background: #fdeaea;
-    color: #c0392b;
-    border: 1.5px solid #f6c6c1;
-    border-radius: 7px;
-    padding: 6px 10px;
-    font-size: 12.5px;
-    font-weight: 600;
-    cursor: pointer;
-  }
+  .delete-btn { background: #fdeaea; color: #c0392b; border: 1.5px solid #f6c6c1; border-radius: 7px; padding: 6px 10px; font-size: 12.5px; font-weight: 600; cursor: pointer; }
   .delete-btn:hover { background: #fbdada; }
-
-  /* ---- Phone action buttons ---- */
-  .phone-cell { display: flex; flex-direction: column; gap: 4px; }
-  .phone-number { font-weight: 600; color: var(--ink); }
-  .phone-actions { display: flex; gap: 6px; }
-  .phone-actions a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    border-radius: 6px;
-    font-size: 13px;
-    text-decoration: none;
-    line-height: 1;
-  }
-  .phone-actions a.call { background: #e7f0fb; }
-  .phone-actions a.whatsapp { background: #e3f7e9; }
-  .phone-actions a.telegram { background: #e8f2fb; }
 
   @media (max-width: 1100px) {
     .breakdown-grid { grid-template-columns: repeat(2, 1fr); }
+    .primary-filters { grid-template-columns: 1fr; }
   }
   @media (max-width: 900px) {
     .stat-grid { grid-template-columns: repeat(2, 1fr); }
-    .breakdown-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 600px) {
+    .content { padding: 14px; }
     .stat-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
     .stat-card { padding: 12px 14px; }
     .stat-card .stat-value { font-size: 18px; }
-    .filter-bar { flex-direction: column; }
-    .filter-bar select, .filter-bar input[type="date"] { width: 100%; }
+    .breakdown-grid { grid-template-columns: 1fr; }
+    .secondary-filters { flex-direction: column; align-items: stretch; }
+    .secondary-filters .field-group { min-width: 0; }
+    .login-card { padding: 30px 22px 24px; border-radius: 16px; }
+    .login-card img.brand-logo { height: 60px; }
+    .login-card h1 { font-size: 18px; }
+    input { font-size: 16px; }
+    button#loginBtn { padding: 14px; font-size: 16px; }
+    .topbar { padding: 12px 16px; }
+    .topbar .brand img { height: 30px; }
+    .topbar h1 { font-size: 15px; }
+    .topbar h1 span.sub { font-size: 10px; }
+    .topbar button { padding: 8px 14px; font-size: 12px; }
+    th, td { padding: 10px 12px; font-size: 12.5px; }
+    td.wrap { max-width: 160px; }
   }
 </style>
 </head>
@@ -435,7 +249,7 @@
   </div>
 </div>
 
-<!-- DASHBOARD SCREEN -->
+<!-- DASHBOARD -->
 <div id="dashboard">
   <div class="topbar">
     <div class="brand">
@@ -444,69 +258,70 @@
     </div>
     <button id="logoutBtn">Logout</button>
   </div>
+
   <div class="content">
-    <div class="insights" id="insights">
-      <div class="stat-grid">
-        <div class="stat-card">
-          <div class="stat-label">Total Applications</div>
-          <div class="stat-value" id="statTotal">0</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Top Position</div>
-          <div class="stat-value" id="statTopPosition">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Top Location</div>
-          <div class="stat-value" id="statTopLocation">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Avg. Experience</div>
-          <div class="stat-value" id="statAvgExp">0 yrs</div>
-        </div>
-      </div>
-      <div class="breakdown-grid">
-        <div class="breakdown-panel">
-          <h3>By Location</h3>
-          <div id="breakdownLocation"></div>
-        </div>
-        <div class="breakdown-panel">
-          <h3>By Education</h3>
-          <div id="breakdownEducation"></div>
-        </div>
-        <div class="breakdown-panel">
-          <h3>By Experience</h3>
-          <div id="breakdownExperience"></div>
-        </div>
-        <div class="breakdown-panel">
-          <h3>By Status</h3>
-          <div id="breakdownStatus"></div>
-        </div>
-      </div>
+
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-label">Total Applications</div><div class="stat-value" id="statTotal">0</div></div>
+      <div class="stat-card"><div class="stat-label">Top Position</div><div class="stat-value" id="statTopPosition">—</div></div>
+      <div class="stat-card"><div class="stat-label">Top Location</div><div class="stat-value" id="statTopLocation">—</div></div>
+      <div class="stat-card"><div class="stat-label">Avg. Experience</div><div class="stat-value" id="statAvgExp">0 yrs</div></div>
     </div>
 
-    <div class="toolbar">
-      <input type="text" id="searchBox" placeholder="Search by name, email or position...">
-      <div class="actions">
-        <span class="count-badge" id="countBadge">0 applications</span>
-        <button id="refreshBtn" style="margin-left:10px;">↻ Refresh</button>
-      </div>
+    <div class="breakdown-grid">
+      <div class="breakdown-panel"><h3>By Location</h3><div id="breakdownLocation"></div></div>
+      <div class="breakdown-panel"><h3>By Education</h3><div id="breakdownEducation"></div></div>
+      <div class="breakdown-panel"><h3>By Position</h3><div id="breakdownPosition"></div></div>
+      <div class="breakdown-panel"><h3>By Status</h3><div id="breakdownStatus"></div></div>
     </div>
 
-    <div class="filter-bar">
-      <select id="filterPosition"><option value="">All Positions</option></select>
-      <select id="filterLocation"><option value="">All Locations</option></select>
-      <select id="filterEducation"><option value="">All Education</option></select>
-      <select id="filterStatus">
-        <option value="">All Statuses</option>
-        <option value="New">New</option>
-        <option value="Shortlisted">Shortlisted</option>
-        <option value="Featured">Featured</option>
-        <option value="Hold">Hold</option>
-        <option value="Rejected">Rejected</option>
-        <option value="Joined">Joined</option>
-      </select>
-      <input type="date" id="filterDate" title="Filter by date applied">
-      <button id="clearFiltersBtn">Clear Filters</button>
+    <div class="filters-section">
+      <div class="filters-top-row">
+        <input type="text" id="searchBox" placeholder="Search by name, email...">
+        <div class="actions">
+          <span class="count-badge" id="countBadge">0 applications</span>
+          <button id="refreshBtn">↻ Refresh</button>
+        </div>
+      </div>
+
+      <div class="primary-filters">
+        <div>
+          <label for="filterLocation">Location</label>
+          <select id="filterLocation"><option value="">All Locations</option></select>
+        </div>
+        <div>
+          <label for="filterEducation">Education</label>
+          <select id="filterEducation"><option value="">All Education</option></select>
+        </div>
+        <div>
+          <label for="filterPosition">Position</label>
+          <select id="filterPosition"><option value="">All Positions</option></select>
+        </div>
+      </div>
+
+      <div class="secondary-filters">
+        <div class="field-group">
+          <label for="filterStatus">Status</label>
+          <select id="filterStatus">
+            <option value="">All Statuses</option>
+            <option value="New">New</option>
+            <option value="Shortlisted">Shortlisted</option>
+            <option value="Featured">Featured</option>
+            <option value="Hold">Hold</option>
+            <option value="Rejected">Rejected</option>
+            <option value="Joined">Joined</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label for="filterDateFrom">From Date</label>
+          <input type="date" id="filterDateFrom">
+        </div>
+        <div class="field-group">
+          <label for="filterDateTo">To Date</label>
+          <input type="date" id="filterDateTo">
+        </div>
+        <button id="clearFiltersBtn">Clear Filters</button>
+      </div>
     </div>
 
     <div class="table-wrap">
@@ -523,6 +338,7 @@
             <th>Experience</th>
             <th>Education</th>
             <th>Cover Letter</th>
+            <th>Resume</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
@@ -551,7 +367,6 @@ toggleEye.addEventListener('click', () => {
   hrPasswordInput.type = hrPasswordInput.type === 'password' ? 'text' : 'password';
 });
 
-// Restore session for this tab only
 if (sessionStorage.getItem('hrAuthed') === 'true') {
   hrPasswordCache = sessionStorage.getItem('hrPassword') || "";
   showDashboard();
@@ -609,12 +424,110 @@ document.getElementById('logoutBtn').addEventListener('click', () => {
 
 document.getElementById('refreshBtn').addEventListener('click', loadApplications);
 
-// Event delegation for status changes and delete clicks (rows are re-rendered dynamically)
+async function loadApplications() {
+  const status = document.getElementById('status');
+  const table = document.getElementById('appTable');
+  status.style.display = 'block';
+  status.textContent = 'Loading applications...';
+  table.style.display = 'none';
+
+  try {
+    const res = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'getApplications', password: hrPasswordCache })
+    });
+    const data = await res.json();
+
+    if (data.status === 'success') {
+      allApplications = data.data || [];
+      populateFiltersAndRender();
+    } else {
+      status.textContent = "Session expired. Please log in again.";
+      setTimeout(() => { sessionStorage.clear(); location.reload(); }, 1500);
+    }
+  } catch (err) {
+    status.textContent = "Could not load applications. Check connection.";
+  }
+}
+
+// ---------- Rendering ----------
+
+function renderTable(list) {
+  const status = document.getElementById('status');
+  const table = document.getElementById('appTable');
+  const tbody = document.getElementById('tableBody');
+  const countBadge = document.getElementById('countBadge');
+
+  countBadge.textContent = list.length + (list.length === 1 ? ' application' : ' applications');
+
+  if (list.length === 0) {
+    status.textContent = "No applications match these filters.";
+    status.style.display = 'block';
+    table.style.display = 'none';
+    return;
+  }
+
+  tbody.innerHTML = list.map(app => `
+    <tr>
+      <td>${formatDate(app.Timestamp)}</td>
+      <td>${escapeHtml(app.Name)}</td>
+      <td>${escapeHtml(app.Email)}</td>
+      <td>${buildPhoneCell(app.Phone)}</td>
+      <td>${escapeHtml(app.Location)}</td>
+      <td>${escapeHtml(app.Position)}</td>
+      <td>${escapeHtml(app.Experience)} yrs</td>
+      <td>${escapeHtml(app.Education)}</td>
+      <td class="wrap">${escapeHtml(app.CoverLetter)}</td>
+      <td>${buildResumeCell(app.ResumeLink)}</td>
+      <td>${buildStatusCell(app)}</td>
+      <td><button class="delete-btn" data-id="${escapeHtml(app.ID)}" data-name="${escapeHtml(app.Name)}">🗑 Delete</button></td>
+    </tr>
+  `).join('');
+
+  status.style.display = 'none';
+  table.style.display = 'table';
+}
+
+function buildPhoneCell(phone) {
+  const raw = (phone || '').toString().trim();
+  if (!raw) return '';
+  const digits = raw.replace(/[^\d+]/g, '');
+  let intl = digits;
+  if (!intl.startsWith('+')) {
+    intl = digits.length === 10 ? '+91' + digits : '+' + digits;
+  }
+  const waNumber = intl.replace('+', '');
+  return `
+    <div class="phone-cell">
+      <span class="phone-number">${escapeHtml(raw)}</span>
+      <div class="phone-actions">
+        <a class="call" href="tel:${intl}" title="Call ${escapeHtml(raw)}">📞</a>
+        <a class="whatsapp" href="https://wa.me/${waNumber}" target="_blank" rel="noopener" title="WhatsApp ${escapeHtml(raw)}">🟢</a>
+        <a class="telegram" href="https://t.me/+${waNumber}" target="_blank" rel="noopener" title="Telegram ${escapeHtml(raw)}">✈️</a>
+      </div>
+    </div>
+  `;
+}
+
+function buildResumeCell(link) {
+  const url = (link || '').toString().trim();
+  if (!url) return '<span class="no-resume">No resume</span>';
+  return `<a class="resume-link" href="${escapeHtml(url)}" target="_blank" rel="noopener">📄 View</a>`;
+}
+
+function buildStatusCell(app) {
+  const current = app.Status || 'New';
+  const options = ['New', 'Shortlisted', 'Featured', 'Hold', 'Rejected', 'Joined'];
+  const optionsHtml = options.map(o => `<option value="${o}" ${o === current ? 'selected' : ''}>${o}</option>`).join('');
+  return `<select class="status-select status-${current}" data-id="${escapeHtml(app.ID)}">${optionsHtml}</select>`;
+}
+
+// Event delegation: status changes + delete clicks
 document.getElementById('tableBody').addEventListener('change', function(e) {
   if (e.target.classList.contains('status-select')) {
     const id = e.target.getAttribute('data-id');
-    const newStatus = e.target.value;
-    updateCandidateStatus(id, newStatus, e.target);
+    updateCandidateStatus(id, e.target.value, e.target);
   }
 });
 
@@ -643,7 +556,7 @@ async function updateCandidateStatus(id, newStatus, selectEl) {
       const app = allApplications.find(a => a.ID === id);
       if (app) app.Status = newStatus;
       selectEl.className = 'status-select status-' + newStatus;
-      renderDashboard(currentFilteredList());
+      renderDashboard(getFilteredList());
     } else {
       alert('Could not update status: ' + (data.message || 'Unknown error'));
       selectEl.className = prevClass;
@@ -674,116 +587,7 @@ async function deleteCandidateApplication(id) {
   }
 }
 
-function currentFilteredList() {
-  // Re-derive the currently visible filtered list (used to refresh dashboard after a status change)
-  const q = document.getElementById('searchBox').value.toLowerCase();
-  const posFilter = document.getElementById('filterPosition').value;
-  const locFilter = document.getElementById('filterLocation').value;
-  const eduFilter = document.getElementById('filterEducation').value;
-  const statusFilter = document.getElementById('filterStatus').value;
-  return allApplications.filter(app => {
-    const matchesSearch = !q ||
-      (app.Name || '').toLowerCase().includes(q) ||
-      (app.Email || '').toLowerCase().includes(q) ||
-      (app.Position || '').toLowerCase().includes(q) ||
-      (app.Location || '').toLowerCase().includes(q);
-    const matchesPos = !posFilter || (app.Position || '') === posFilter;
-    const matchesLoc = !locFilter || (app.Location || '') === locFilter;
-    const matchesEdu = !eduFilter || (app.Education || '') === eduFilter;
-    const matchesStatus = !statusFilter || (app.Status || 'New') === statusFilter;
-    return matchesSearch && matchesPos && matchesLoc && matchesEdu && matchesStatus;
-  });
-}
-
-async function loadApplications() {
-  const status = document.getElementById('status');
-  const table = document.getElementById('appTable');
-  status.style.display = 'block';
-  status.textContent = 'Loading applications...';
-  table.style.display = 'none';
-
-  try {
-    const res = await fetch(SCRIPT_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ action: 'getApplications', password: hrPasswordCache })
-    });
-    const data = await res.json();
-
-    if (data.status === 'success') {
-      allApplications = data.data || [];
-      populateFiltersAndRender();
-    } else {
-      status.textContent = "Session expired. Please log in again.";
-      setTimeout(() => { sessionStorage.clear(); location.reload(); }, 1500);
-    }
-  } catch (err) {
-    status.textContent = "Could not load applications. Check connection.";
-  }
-}
-
-function renderTable(list) {
-  const status = document.getElementById('status');
-  const table = document.getElementById('appTable');
-  const tbody = document.getElementById('tableBody');
-  const countBadge = document.getElementById('countBadge');
-
-  countBadge.textContent = list.length + (list.length === 1 ? ' application' : ' applications');
-
-  if (list.length === 0) {
-    status.textContent = "No applications yet.";
-    status.style.display = 'block';
-    table.style.display = 'none';
-    return;
-  }
-
-  tbody.innerHTML = list.map(app => `
-    <tr>
-      <td>${formatDate(app.Timestamp)}</td>
-      <td>${escapeHtml(app.Name)}</td>
-      <td>${escapeHtml(app.Email)}</td>
-      <td>${buildPhoneCell(app.Phone)}</td>
-      <td>${escapeHtml(app.Location)}</td>
-      <td>${escapeHtml(app.Position)}</td>
-      <td>${escapeHtml(app.Experience)} yrs</td>
-      <td>${escapeHtml(app.Education)}</td>
-      <td class="wrap">${escapeHtml(app.CoverLetter)}</td>
-      <td>${buildStatusCell(app)}</td>
-      <td><button class="delete-btn" data-id="${escapeHtml(app.ID)}" data-name="${escapeHtml(app.Name)}">🗑 Delete</button></td>
-    </tr>
-  `).join('');
-
-  status.style.display = 'none';
-  table.style.display = 'table';
-}
-
-function buildStatusCell(app) {
-  const current = app.Status || 'New';
-  const options = ['New', 'Shortlisted', 'Featured', 'Hold', 'Rejected', 'Joined'];
-  const optionsHtml = options.map(o => `<option value="${o}" ${o === current ? 'selected' : ''}>${o}</option>`).join('');
-  return `<select class="status-select status-${current}" data-id="${escapeHtml(app.ID)}">${optionsHtml}</select>`;
-}
-
-function buildPhoneCell(phone) {
-  const raw = (phone || '').toString().trim();
-  if (!raw) return '';
-  const digits = raw.replace(/[^\d+]/g, '');
-  let intl = digits;
-  if (!intl.startsWith('+')) {
-    intl = digits.length === 10 ? '+91' + digits : '+' + digits;
-  }
-  const waNumber = intl.replace('+', '');
-  return `
-    <div class="phone-cell">
-      <span class="phone-number">${escapeHtml(raw)}</span>
-      <div class="phone-actions">
-        <a class="call" href="tel:${intl}" title="Call ${escapeHtml(raw)}">📞</a>
-        <a class="whatsapp" href="https://wa.me/${waNumber}" target="_blank" rel="noopener" title="WhatsApp ${escapeHtml(raw)}">🟢</a>
-        <a class="telegram" href="https://t.me/+${waNumber}" target="_blank" rel="noopener" title="Telegram ${escapeHtml(raw)}">✈️</a>
-      </div>
-    </div>
-  `;
-}
+// ---------- Filters ----------
 
 function populateFiltersAndRender() {
   populateFilters();
@@ -812,20 +616,19 @@ function populateFilters() {
   if (educations.includes(currentEdu)) educationSel.value = currentEdu;
 }
 
-function applyFilters() {
+function getFilteredList() {
   const q = document.getElementById('searchBox').value.toLowerCase();
   const posFilter = document.getElementById('filterPosition').value;
   const locFilter = document.getElementById('filterLocation').value;
   const eduFilter = document.getElementById('filterEducation').value;
   const statusFilter = document.getElementById('filterStatus').value;
-  const dateFilter = document.getElementById('filterDate').value; // yyyy-mm-dd
+  const dateFrom = document.getElementById('filterDateFrom').value; // yyyy-mm-dd
+  const dateTo = document.getElementById('filterDateTo').value;
 
-  const filtered = allApplications.filter(app => {
+  return allApplications.filter(app => {
     const matchesSearch = !q ||
       (app.Name || '').toLowerCase().includes(q) ||
-      (app.Email || '').toLowerCase().includes(q) ||
-      (app.Position || '').toLowerCase().includes(q) ||
-      (app.Location || '').toLowerCase().includes(q);
+      (app.Email || '').toLowerCase().includes(q);
 
     const matchesPos = !posFilter || (app.Position || '') === posFilter;
     const matchesLoc = !locFilter || (app.Location || '') === locFilter;
@@ -833,11 +636,12 @@ function applyFilters() {
     const matchesStatus = !statusFilter || (app.Status || 'New') === statusFilter;
 
     let matchesDate = true;
-    if (dateFilter) {
+    if (dateFrom || dateTo) {
       const d = new Date(app.Timestamp);
       if (!isNaN(d)) {
-        const appDate = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
-        matchesDate = appDate === dateFilter;
+        const appDateStr = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+        if (dateFrom && appDateStr < dateFrom) matchesDate = false;
+        if (dateTo && appDateStr > dateTo) matchesDate = false;
       } else {
         matchesDate = false;
       }
@@ -845,7 +649,10 @@ function applyFilters() {
 
     return matchesSearch && matchesPos && matchesLoc && matchesEdu && matchesStatus && matchesDate;
   });
+}
 
+function applyFilters() {
+  const filtered = getFilteredList();
   renderTable(filtered);
   renderDashboard(filtered);
 }
@@ -855,16 +662,20 @@ document.getElementById('filterPosition').addEventListener('change', applyFilter
 document.getElementById('filterLocation').addEventListener('change', applyFilters);
 document.getElementById('filterEducation').addEventListener('change', applyFilters);
 document.getElementById('filterStatus').addEventListener('change', applyFilters);
-document.getElementById('filterDate').addEventListener('change', applyFilters);
+document.getElementById('filterDateFrom').addEventListener('change', applyFilters);
+document.getElementById('filterDateTo').addEventListener('change', applyFilters);
 document.getElementById('clearFiltersBtn').addEventListener('click', () => {
   document.getElementById('searchBox').value = '';
   document.getElementById('filterPosition').value = '';
   document.getElementById('filterLocation').value = '';
   document.getElementById('filterEducation').value = '';
   document.getElementById('filterStatus').value = '';
-  document.getElementById('filterDate').value = '';
+  document.getElementById('filterDateFrom').value = '';
+  document.getElementById('filterDateTo').value = '';
   applyFilters();
 });
+
+// ---------- Dashboard insights ----------
 
 function renderDashboard(list) {
   document.getElementById('statTotal').textContent = list.length;
@@ -884,20 +695,12 @@ function renderDashboard(list) {
 
   renderBreakdown('breakdownLocation', locCounts);
   renderBreakdown('breakdownEducation', eduCounts);
-
-  const expBuckets = { '0-1 yrs': 0, '1-3 yrs': 0, '3-5 yrs': 0, '5+ yrs': 0 };
-  expValues.forEach(v => {
-    if (v <= 1) expBuckets['0-1 yrs']++;
-    else if (v <= 3) expBuckets['1-3 yrs']++;
-    else if (v <= 5) expBuckets['3-5 yrs']++;
-    else expBuckets['5+ yrs']++;
-  });
-  renderBreakdown('breakdownExperience', expBuckets, true);
+  renderBreakdown('breakdownPosition', posCounts);
 
   const statusOrder = ['New', 'Shortlisted', 'Featured', 'Hold', 'Rejected', 'Joined'];
-  const statusCountsRaw = countBy(list.map(a => ({ StatusField: a.Status || 'New' })), 'StatusField');
+  const rawStatusCounts = countBy(list.map(a => ({ StatusField: a.Status || 'New' })), 'StatusField');
   const statusCounts = {};
-  statusOrder.forEach(s => { statusCounts[s] = statusCountsRaw[s] || 0; });
+  statusOrder.forEach(s => { statusCounts[s] = rawStatusCounts[s] || 0; });
   renderBreakdown('breakdownStatus', statusCounts, true);
 }
 
@@ -935,6 +738,8 @@ function renderBreakdown(containerId, counts, keepOrder) {
     </div>
   `).join('');
 }
+
+// ---------- Utilities ----------
 
 function formatDate(ts) {
   if (!ts) return '';
